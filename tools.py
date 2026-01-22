@@ -1,14 +1,17 @@
 from langchain_core.tools import tool
 import os
 import pdfplumber  # ← Move imports here, outside function
+from langsmith import traceable
+
 
 @tool
+@traceable(name = "extract text from resumes",tags=["dimension:resume text"],metadata={"dimension":"resumetext"})
 def extract_text_from_pdf(pdf_input: str = None) -> dict:
     """
     Extract text from PDF file(s). from given default folder path 
     
     Args:
-        pdf_input: (Optional) Path to PDF file or folder.
+        pdf_input: (Optional) Path to PDF file or folder 
                    If not provided, uses predefined path.
     
     Returns:
