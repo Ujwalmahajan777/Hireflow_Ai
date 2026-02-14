@@ -7,10 +7,11 @@ from langgraph.prebuilt import ToolNode , tools_condition
 from langchain_core import tools
 import os
 from langchain_core.messages import HumanMessage, SystemMessage ,BaseMessage 
-from tools import extract_text_from_pdf
+from tools import extract_text_from_pdf 
 from typing import Annotated,TypedDict
 from langgraph.graph.message import add_messages
-
+from node_email_tool import schedule_interview_email
+ 
 
 load_dotenv()
 
@@ -27,7 +28,7 @@ def chat_node(state: ChatState ):
     return {"messages": [response]}
 
 
-tools = [extract_text_from_pdf]
+tools = [extract_text_from_pdf,schedule_interview_email]
 llm_with_tools = llm.bind_tools(tools)
 
 tool_node = ToolNode(tools)
